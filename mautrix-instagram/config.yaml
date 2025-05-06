@@ -1,0 +1,43 @@
+# Basic bridge configuration
+homeserver:
+  address: "https://your-matrix-domain.duckdns.org"
+  domain: "your-matrix-domain.duckdns.org"
+  software: "synapse"
+  verify_ssl: true
+
+appservice:
+  address: "http://localhost:29318"
+  hostname: "localhost"
+  port: 29318
+  database: "file:mautrix-instagram.db"
+  id: instagram
+  bot_username: instagrambot
+  as_token: "YOUR_AS_TOKEN"
+  hs_token: "YOUR_HS_TOKEN"
+  rate_limited: false
+
+bridge:
+  username_template: "instagram_{{.}}"   # Matrix user ID format
+  displayname_template: "{{.}}"          # Display name for Instagram users
+  command_prefix: "!ig"                  # Commands prefix in Matrix rooms
+
+  permissions:
+    "your-matrix-username:your-matrix-domain.duckdns.org": user   # You as user
+    "@admin:your-matrix-domain.duckdns.org": admin                # Bot/admin
+
+instagram:
+  api_url: "https://graph.instagram.com"
+  login_method: "manual"
+  require_verified: true
+
+logging:
+  level: info
+  writers:
+    - console
+
+metrics:
+  enabled: false
+
+# Registration file path to use with Synapse
+registration:
+  file: instagram-registration.yaml

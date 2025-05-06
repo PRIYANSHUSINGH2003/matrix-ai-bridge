@@ -1,0 +1,8 @@
+transformers
+sentence-transformers
+faiss-cpu
+requests
+spacy
+torch
+datasets
+torch

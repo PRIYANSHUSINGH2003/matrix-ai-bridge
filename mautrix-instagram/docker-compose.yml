@@ -1,0 +1,9 @@
+version: '3'
+services:
+  bridge:
+    image: dock.mau.dev/mautrix/instagram
+    volumes:
+      - ./data:/data
+    environment:
+      - CONFIG_PATH=/data/config.yaml
+    restart: unless-stopped
