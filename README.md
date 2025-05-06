@@ -129,7 +129,7 @@ matrix-ai-platform/
 
 ## 📜 License
 
-MIT © \[Your Name]
+MIT © \Priyanshu Singh
 
 ---
 
