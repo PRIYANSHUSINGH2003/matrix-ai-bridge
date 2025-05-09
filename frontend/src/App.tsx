@@ -10,7 +10,7 @@ function App() {
       </header>
 
       <main className="flex justify-center items-start py-10 px-4">
-        <div className="w-full max-w-5xl">
+        <div className="w-full max-w-8xl">
           <Dashboard />
         </div>
       </main>
