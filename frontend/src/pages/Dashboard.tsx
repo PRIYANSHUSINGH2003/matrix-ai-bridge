@@ -1,50 +1,81 @@
+// pages/Dashboard.tsx
+import { useState } from 'react';
 import { ChatWindow } from '../components/ChatWindow';
+import {
+  Settings,
+  HelpCircle,
+  LogOut,
+  LayoutDashboard,
+  Menu,
+  X,
+} from 'lucide-react';
 
 export const Dashboard = () => {
-  return (
-    <div className="min-h-screen flex text-gray-900 font-sans bg-gradient-to-br from-gray-100 to-gray-200">
-      {/* Left Panel */}
-      <div className="w-60 flex-none bg-indigo-600 p-4 text-white">
-        <h2 className="text-xl font-bold mb-6">Matrix AI</h2>
-        <nav>
-          <ul className="mt-4 space-y-3">
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-indigo-700 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-              <a href="#" className="block">Dashboard</a>
-            </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-indigo-700 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-              </svg>
-              <a href="#" className="block">Help & FAQ</a>
-            </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-indigo-700 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-              </svg>
-              <a href="#" className="block">Settings</a>
-            </li>
-          </ul>
-        </nav>
-        <div className="mt-auto pt-6 border-t border-indigo-500 mt-8">
-          <div className="flex items-center space-x-2 p-2 rounded hover:bg-indigo-700 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
-            </svg>
-            <a href="#" className="block">Logout</a>
-          </div>
-        </div>
-      </div>
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-      {/* Main Content */}
-      <div className="flex-1 p-6 overflow-auto">
-        <h1 className="text-3xl font-bold mb-6 text-indigo-700">AI-Powered Matrix Dashboard</h1>
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-          <ChatWindow />
-        </div>
+  return (
+    <div className="flex w-full h-screen font-sans bg-[#1e1e2ff8] text-gray-900 relative">
+      {/* Sidebar */}
+      {sidebarOpen && (
+        <aside className="w-64 bg-[#1e1e2f] text-white flex flex-col p-4 fixed h-screen z-30 shadow-lg transition-transform">
+          <div className="flex items-center justify-center mb-3 -mt-1 p-2 -mx-4 border-b border-solid border-b-gray-700 border-r-0 shadow-md">
+            <span className="text-2xl font-bold tracking-wide text-center text-indigo-400">Matrix AI</span>
+          </div>
+
+          <nav className="space-y-2 flex-1 mt-6">
+            <SidebarLink icon={<LayoutDashboard size={18} />} label="Dashboard" />
+            <SidebarLink icon={<HelpCircle size={18} />} label="Help & FAQ" />
+            <SidebarLink icon={<Settings size={18} />} label="Settings" />
+          </nav>
+
+          <div className="mt-auto border-t border-gray-700 pt-0 -mx-4">
+            <SidebarLink icon={<LogOut size={18} />} label="Logout" />
+          </div>
+        </aside>
+      )}
+
+      {/* Main Area */}
+      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'} flex-1 flex flex-col h-screen overflow-hidden`}>
+        {/* Header */}
+        <header className="sticky top-0 bg-[#1e1e2f] border-b border-solid border-b-gray-700 shadow-md px-6 py-2.5 z-20 flex items-center justify-between">
+          {/* Show logo in header only when sidebar is closed */}
+          {!sidebarOpen && (
+            <div className="flex items-center justify-center px-2 -mx-4">
+              <span className="text-2xl font-bold tracking-wide text-center text-indigo-400">Matrix AI</span>
+            </div>
+          )}
+          <h2 className="text-xl font-semibold text-indigo-400">AI Chat Interface</h2>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="bg-[#1e1e2f] text-gray-400 hover:text-white transition"
+            aria-label="Toggle Sidebar"
+          >
+            {sidebarOpen ? <X size={19} /> : <Menu size={19} />}
+          </button>
+        </header>
+
+        {/* Main Chat Area */}
+        <main className="flex-1 overflow-y-auto p-6">
+          <div className="max-w-3xl mx-auto">
+            <ChatWindow />
+          </div>
+        </main>
+
+        {/* Footer */}
+        <footer className="text-center text-sm text-gray-500 py-4 bg-[#1e1e2f] border-t border-t-gray-700">
+          © {new Date().getFullYear()} Matrix AI · Built by You 🚀
+        </footer>
       </div>
     </div>
   );
-}
+};
+
+const SidebarLink = ({ icon, label }: { icon: React.ReactNode; label: string }) => (
+  <a
+    href="#"
+    className="flex items-center gap-3 px-4 py-2 rounded hover:bg-[#2e2e3f] transition duration-200 text-sm"
+  >
+    {icon}
+    {label}
+  </a>
+);
